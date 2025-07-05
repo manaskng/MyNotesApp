@@ -1,38 +1,44 @@
-
 import express from "express";
 import dotenv from "dotenv";
-import { connect } from "./config/db.js";
-import authRoutes from "./routes/auth.js"
-import notesRoutes from './routes/notes.js'
 import path from "path";
+import { fileURLToPath } from "url";
 
+import { connect } from "./config/db.js";
+import authRoutes from "./routes/auth.js";
+import notesRoutes from "./routes/notes.js";
+
+// ES Module equivalent of __filename and __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
+app.use(express.json());
 
-app.use(express.json());//automatically parse json form http request 
-// and access req.body in routes
-
-
-
-app.use("/api/users",authRoutes);
-app.use("/api/notes",notesRoutes)
-
-const __dirname = path.resolve();
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
-  
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-  });
-}
-
-
+// DB Connection
 connect();
 
+// Routes
+app.use("/api/users", authRoutes);
+app.use("/api/notes", notesRoutes);
+
+// Serve frontend in production
+if (process.env.NODE_ENV === "production") {
+  const frontendDist = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendDist));
+
+  // Use splat wildcard to avoid path-to-regexp error
+  app.get("/*splat", (req, res) =>
+    res.sendFile(path.resolve(frontendDist, "index.html"))
+  );
+}
+
+// Start server
 app.listen(PORT, () => {
-    console.log(`server connected at port :${PORT}`);
+  console.log(`Server connected at port: ${PORT}`);
 });
