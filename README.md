@@ -13,6 +13,7 @@ A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operat
 - 📎 Store **Links, Images**, and **Rich Text**
 - 🔐 Protected Routes using JWT middleware
 - 📦 Frontend and Backend separated for clean structure
+-  About to be Dockerised
 
 ---
 
