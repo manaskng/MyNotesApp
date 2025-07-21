@@ -19,9 +19,20 @@ A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operat
 ---
 
 # Feature Walkthrough with visuals
+## Register Page
 <img width="1795" height="834" alt="image" src="https://github.com/user-attachments/assets/f7e596ff-c79e-4e44-8f44-439c87ea0175" />
+
+## Login page 
 <img width="1807" height="853" alt="image" src="https://github.com/user-attachments/assets/08882cfb-af1a-406e-976a-6f6f89a11b15" />
+
+## forgot-password and reset password page
 <img width="1840" height="892" alt="image" src="https://github.com/user-attachments/assets/96b88205-603b-47df-a19f-77d035b799d5" />
+
+## Gmail link for Password reset
+<img width="1235" height="360" alt="image" src="https://github.com/user-attachments/assets/3ccf94f0-8f66-494f-8992-696d3f1a8752" />
+
+
+## search page for notes
 <img width="1868" height="510" alt="image" src="https://github.com/user-attachments/assets/d790e900-c437-4938-b2dd-93946e7a979e" />
 
 
