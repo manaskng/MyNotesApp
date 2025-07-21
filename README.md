@@ -14,7 +14,7 @@ A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operat
 - 📎 Store **Links, Images**, and **Rich Text**
 - 🔐 Protected Routes using JWT middleware
 - 📦 Frontend and Backend separated for clean structure
--  About to be Dockerised
+-   Dockerised
 
 ---
 
@@ -34,6 +34,9 @@ A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operat
 
 ## search page for notes
 <img width="1868" height="510" alt="image" src="https://github.com/user-attachments/assets/d790e900-c437-4938-b2dd-93946e7a979e" />
+
+## Dockerised runs on Container mern-notesapp and 2 images using node:20 as base image for forntend and node:18-alpine as base image for backend
+<img width="1589" height="878" alt="image" src="https://github.com/user-attachments/assets/22d6a6d7-126a-4352-97c2-ffe39b208178" />
 
 
 
