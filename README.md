@@ -1,4 +1,5 @@
 # 📝 MyNotesApp
+# Deployed At Render :https://mynotesapp-oh0p.onrender.com/
 
 A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operations**, **Forgot/Reset Password Functionality**, and a modern UI. Built using **MERN Stack** (MongoDB, Express, React, Node.js) and **Axios** for API handling.
 
@@ -16,6 +17,16 @@ A **Full-Stack Notes Management App** with **JWT Authentication**, **CRUD Operat
 -  About to be Dockerised
 
 ---
+
+# Feature Walkthrough with visuals
+<img width="1795" height="834" alt="image" src="https://github.com/user-attachments/assets/f7e596ff-c79e-4e44-8f44-439c87ea0175" />
+<img width="1807" height="853" alt="image" src="https://github.com/user-attachments/assets/08882cfb-af1a-406e-976a-6f6f89a11b15" />
+<img width="1840" height="892" alt="image" src="https://github.com/user-attachments/assets/96b88205-603b-47df-a19f-77d035b799d5" />
+<img width="1868" height="510" alt="image" src="https://github.com/user-attachments/assets/d790e900-c437-4938-b2dd-93946e7a979e" />
+
+
+
+
 
 ## 🛠️ Tech Stack
 
@@ -67,29 +78,6 @@ npm install
 npm start
 📬 API Endpoints (Protected with JWT)
 🔐 Auth Routes
-
-**Route	Method	Description**
-/api/users/register	POST	Register a new user
-/api/users/login	POST	Login with credentials
-/api/users/forgot-password	POST	Send reset password email
-/api/users/reset-password/:token	POST	Reset password via token
-
-**📝 Notes Routes**
-Route	Method	Description
-/api/notes	GET	Get all notes (user-specific)
-/api/notes	POST	Create a new note
-/api/notes/:id	PUT	Update a note
-/api/notes/:id	DELETE	Delete a note
-
-🧪 Optional Features (You can Add Later)
-✅ Image upload (Multer + Cloudinary)
-✅ WYSIWYG Editor for rich notes
-✅ Search & Filter notes
-✅ Archive/Trash functionality
-✅ Daily/Weekly productivity graph
-✅ Markdown support
-
-📸 Screenshots
 
 
 
