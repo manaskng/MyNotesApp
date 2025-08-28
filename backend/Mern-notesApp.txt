@@ -1,0 +1,24 @@
+Mern-notesApp
+├── .env
+├── .gitignore
+├── backend
+│   ├── config
+│   │   └── db.js
+│   ├── middlewares
+│   │   └── auth.js
+│   ├── models
+│   │   ├── Note.js
+│   │   └── User.js
+│   ├── routes
+│   │   ├── auth.js
+│   │   └── notes.js
+│   └── server.js
+├── frontend
+│   ├── .env
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── node_modules
+│   │  
+├── package-lock.json
+└── package.json

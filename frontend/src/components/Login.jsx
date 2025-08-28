@@ -54,6 +54,9 @@ function Login({ setUser }) {
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
+          
+          <Link className='text-cyan-500 hover:text-cyan-950' to="/forgot-password">Forgot Password</Link>
+          <br></br>
           Don't have an account?{' '}
           <Link to="/register" className="text-indigo-600 hover:underline hover:text-indigo-800 transition">
             Register

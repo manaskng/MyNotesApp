@@ -5,6 +5,8 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import axios from "axios";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -57,6 +59,10 @@ function App() {
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser}/>} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register setUser={setUser}/>} />
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/forgot-password" element= {<ForgotPassword/>} />
+        <Route path="/reset-password/:id/:token" element={<ResetPassword setUser={setUser} />} />
+
+
       </Routes>
     </div>
   );
