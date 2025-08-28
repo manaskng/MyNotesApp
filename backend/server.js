@@ -37,14 +37,14 @@ connect();
 app.use("/api/users", authRoutes);
 app.use("/api/notes", notesRoutes);
 
-// Serve frontend in production (optional since frontend is on Vercel)
-if (process.env.NODE_ENV === "production") {
-  const frontendDist = path.join(__dirname, "../frontend/dist");
-  app.use(express.static(frontendDist));
-  app.get("/*splat", (req, res) =>
-    res.sendFile(path.resolve(frontendDist, "index.html"))
-  );
-}
+// // Serve frontend in production (optional since frontend is on Vercel)
+// if (process.env.NODE_ENV === "production") {
+//   const frontendDist = path.join(__dirname, "../frontend/dist");
+//   app.use(express.static(frontendDist));
+//   app.get("/*splat", (req, res) =>
+//     res.sendFile(path.resolve(frontendDist, "index.html"))
+//   );
+// }
 
 // Start server
 app.listen(PORT, () => {
