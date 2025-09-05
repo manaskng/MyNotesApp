@@ -26,14 +26,7 @@ img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) | ![JWT](http
 
 ---
 
-## Application Preview
-<img width="728" height="663" alt="image" src="https://github.com/user-attachments/assets/acbba586-0103-44f9-91f2-1410cda6c832" />
-<img width="728" height="663" alt="image" src="https://github.com/user-attachments/assets/1db1c048-0cea-4ae8-9b51-b0d5c039fd92" />
-<img width="1020" height="760" alt="image" src="https://github.com/user-attachments/assets/28072a24-e2c1-480a-bd03-124138653746" />
-<img width="1069" height="636" alt="image" src="https://github.com/user-attachments/assets/814c023e-7e8f-4a07-8b54-5b2800109744" />
-<img width="1862" height="868" alt="image" src="https://github.com/user-attachments/assets/f3fd126d-7178-49eb-b2d8-0efe43833756" />
-<img width="1832" height="853" alt="image" src="https://github.com/user-attachments/assets/c0bdca6d-510b-49cf-abfa-36efe8b65226" />
-<img width="1874" height="868" alt="image" src="https://github.com/user-attachments/assets/247e9a5d-20e5-41df-9df3-70de81697dc4" />
+
 
 
 ## 📋 Key Features
