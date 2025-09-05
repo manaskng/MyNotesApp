@@ -24,7 +24,7 @@ app.use(express.json());
 // ✅ Enable CORS
 app.use(cors({
   origin: [
-    "http://localhost:3000",               // for local dev
+    "http://localhost:5173",               // for local dev
     "https://my-nano-notesf.vercel.app"     // replace with actual vercel link
   ],
   credentials: true
