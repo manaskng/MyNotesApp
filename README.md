@@ -18,8 +18,7 @@ with a robust authentication system ensuring data privacy.
 
 | Frontend          | Backend           | Database        | Authentication | Deployment & DevOps      |
 | ----------------- | ----------------- | --------------- | -------------- | ------------------------ |
-| ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) | ![MongoDB](https://<img width="748" height="560" alt="image" src="https://github.com/user-attachments/assets/d35c2961-10e9-4faa-ab17-ae0e01f9b9d0" />
-<img width="739" height="373" alt="image" src="https://github.com/user-attachments/assets/48e1e43e-eb41-4416-bf20-1d2b114d2459" />
+| ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) | ![MongoDB]
 img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) | ![JWT](https://img.shields.io/badge/-JWT-000000?logo=jsonwebtokens&logoColor=white) | ![Vercel](https://img.shields.io/badge/-Vercel-black?logo=vercel&logoColor=white) |
 | ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white) | ![Express.js](https://img.shields.io/badge/-Express.js-000000?logo=express&logoColor=white) |                   | ![Nodemailer](https://img.shields.io/badge/-Nodemailer-44a6d1) | ![Render](https://img.shields.io/badge/-Render-46E3B7?logo=render&logoColor=white) |
 |                   |                   |                   | ![Bcrypt](https://img.shields.io/badge/-Bcrypt-blue)  | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white) |
