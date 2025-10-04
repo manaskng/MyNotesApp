@@ -1,5 +1,3 @@
-// src/components/Home.jsx (with client-side search)
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NoteModel from "./NoteModel";
@@ -16,7 +14,6 @@ function Home() {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // This useEffect block is modified to filter on the frontend
   useEffect(() => {
     const fetchNotes = async () => {
       try {
@@ -30,11 +27,9 @@ function Home() {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // Get search term from URL
         const searchParams = new URLSearchParams(location.search);
         const search = searchParams.get("search") || "";
 
-        // Filter the notes on the client-side
         const filteredNotes = search
           ? data.filter(
               (note) =>
@@ -43,8 +38,8 @@ function Home() {
             )
           : data;
         
-        // Sort by most recently updated
-        const sortedNotes = filteredNotes.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        // CHANGED: Update sorting to handle pinned notes on initial load
+        const sortedNotes = filteredNotes.sort((a, b) => b.isPinned - a.isPinned || new Date(b.updatedAt) - new Date(a.updatedAt));
 
         setNotes(sortedNotes);
       } catch (error) {
@@ -61,14 +56,17 @@ function Home() {
   };
 
   const handleSaveNote = (savedNote) => {
+    let newNotes;
     if (editNote) {
-      setNotes(
-        notes.map((note) => (note._id === savedNote._id ? savedNote : note))
-      );
+      newNotes = notes.map((note) => (note._id === savedNote._id ? savedNote : note));
     } else {
-      setNotes([savedNote, ...notes]);
+      newNotes = [savedNote, ...notes];
     }
+    // Re-sort after saving to maintain order
+    newNotes.sort((a, b) => b.isPinned - a.isPinned || new Date(b.updatedAt) - new Date(a.updatedAt));
+    setNotes(newNotes);
     setEditNote(null);
+    setIsModalOpen(false); // Close modal after saving
   };
 
   const handleDelete = async (id) => {
@@ -80,6 +78,30 @@ function Home() {
       setNotes(notes.filter((note) => note._id !== id));
     } catch (error) {
       setError("Failed to delete note");
+      console.error(error);
+    }
+  };
+
+  // ADDED: The new function to handle pinning
+  const handlePinNote = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { data: updatedNote } = await axios.put(
+        `${API_URL}/api/notes/${id}/pin`,
+        {}, // No body needed for a toggle
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const updatedNotes = notes.map((note) =>
+        note._id === updatedNote._id ? updatedNote : note
+      );
+
+      // Re-sort the array on the frontend for an instant UI update
+      updatedNotes.sort((a, b) => b.isPinned - a.isPinned || new Date(b.updatedAt) - new Date(a.updatedAt));
+      
+      setNotes(updatedNotes);
+    } catch (error) {
+      setError("Failed to update pin status");
       console.error(error);
     }
   };
@@ -117,6 +139,7 @@ function Home() {
               note={note}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onPin={handlePinNote} // ADDED: Pass the function as a prop
             />
           ))}
         </div>
