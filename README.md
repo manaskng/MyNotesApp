@@ -24,6 +24,9 @@ with a robust authentication system ensuring data privacy.
 
 ---
 
+
+
+
 ## 📋 Key Features
 
 -   **User Authentication:** Secure user registration and login system using JSON Web Tokens (JWT) for session management.
