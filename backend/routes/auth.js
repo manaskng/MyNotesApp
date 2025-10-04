@@ -3,10 +3,13 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { protect } from "../middlewares/auth.js";
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import crypto from "crypto";
+// ADD SendGrid Mail
+import sgMail from "@sendgrid/mail";
 
 const router = express.Router();
+
+// Set the SendGrid API key from your environment variables
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Generate token function
 const generateToken = (id) => {
@@ -56,37 +59,25 @@ router.get("/me", protect, async (req, res) => {
 router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
-
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Generate JWT token with short expiry for reset
-    const resetToken = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" } // 1 hour expiry for reset token
-    );
-
-    // Compose reset URL with your frontend domain + route + token
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     const resetUrl = `${process.env.CLIENT_URL}/reset-password/${user._id}/${resetToken}`;
 
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
+    // SENDGRID BLOCK
+    const msg = {
       to: user.email,
-      subject: "Password Reset",
-      html: `<p>Click <a href="${resetUrl}">here</a> to reset your password. This link is valid for 1 hour.</p>`,
-    });
+      from: process.env.VERIFIED_SENDER_EMAIL, 
+      subject: "Password Reset for NanoNotes",
+      html: `<p>You requested a password reset. Click <a href="${resetUrl}">here</a> to reset your password. This link is valid for 1 hour.</p>`,
+    };
+
+    await sgMail.send(msg);
 
     return res.json({ message: "Reset link sent to your email" });
   } catch (error) {
-    console.error(error);
+    console.error("SendGrid Error:", error.response?.body || error);
     return res.status(500).json({ message: "Error sending email" });
   }
 });
@@ -96,24 +87,16 @@ router.post("/reset-password/:id/:token", async (req, res) => {
     const { id, token } = req.params;
     const { password } = req.body;
 
-    // Verify the token validity & decode it
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
         return res.status(400).json({ message: "Invalid or expired token" });
       }
-
-      // Extra security: check if decoded id matches param id
       if (decoded.id !== id) {
         return res.status(400).json({ message: "Invalid token" });
       }
-
-      // Hash the new password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-
-      // Update user's password
       await User.findByIdAndUpdate(id, { password: hashedPassword });
-
       return res.json({ message: "Password updated successfully" });
     });
   } catch (error) {
