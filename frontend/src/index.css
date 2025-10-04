@@ -1,2 +1,5 @@
 
 @import "tailwindcss";
+.prose a {
+  @apply text-blue-600 font-semibold hover:underline;
+}

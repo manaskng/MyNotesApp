@@ -2,15 +2,20 @@ import Note from "../models/Note.js";
 import express from "express";
 const router = express.Router();
 import { protect } from './../middlewares/auth.js';
+import DOMPurify from 'dompurify'; // ADDED: For sanitizing HTML
+import { JSDOM } from 'jsdom';    // ADDED: To provide a window for DOMPurify in Node.js
 
-// Get all notes for a user
+// Create a sanitizing function instance
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
+
+// Get all notes
 router.get("/", protect, async (req, res) => {
     try {
-        // CHANGED: Use 'user' instead of 'createdBy'
-        const notes = await Note.find({ user: req.user._id }); 
+        const notes = await Note.find({ createdBy: req.user._id }) 
+            .sort({ isPinned: -1, updatedAt: -1 }); 
         return res.json(notes);
     } catch (err) {
-        console.error("Error fetching notes", err);
         return res.status(500).json({ message: "Server error" });
     }
 });
@@ -20,31 +25,13 @@ router.post("/", protect, async (req, res) => {
     const { title, description } = req.body;
     try {
         if (!title || !description) {
-            return res.status(400).json({ message: "Please fill all the fields" });
+            return res.status(401).json({ message: "Please fill all the fields" });
         }
-        // CHANGED: Use 'user' instead of 'createdBy'
-        const note = await Note.create({ title, description, user: req.user._id }); 
+        // CHANGED: Sanitize the incoming HTML from the editor
+        const cleanDescription = purify.sanitize(description);
+        const note = await Note.create({ title, description: cleanDescription, createdBy: req.user._id });
         return res.json(note);
     } catch (error) {
-        console.error("Server Error", error);
-        return res.status(500).json({ message: "Server error" });
-    }
-});
-
-// Get single note by id
-router.get("/:id", protect, async (req, res) => {
-    try {
-        const note = await Note.findById(req.params.id);
-        if (!note) {
-            return res.status(404).json({ message: "Note not found" });
-        }
-        // Add authorization check here as well for security
-        if (note.user.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ message: "Not authorized" });
-        }
-        res.json(note);
-    } catch (error) {
-        console.error("Server Error", error);
         return res.status(500).json({ message: "Server error" });
     }
 });
@@ -57,16 +44,17 @@ router.put("/:id", protect, async (req, res) => {
         if (!note) {
             return res.status(404).json({ message: "Note not found" });
         }
-        // CHANGED: Use 'note.user' instead of 'note.createdBy'
-        if (note.user.toString() !== req.user._id.toString()) {
+        if (note.createdBy.toString() != req.user._id.toString()) {
             return res.status(401).json({ message: "Not authorized" });
         }
         note.title = title || note.title;
-        note.description = description || note.description;
+        // CHANGED: Sanitize the description if it's being updated
+        if (description) {
+            note.description = purify.sanitize(description);
+        }
         const updatedNote = await note.save();
         res.json(updatedNote);
     } catch (error) {
-        console.error("Server Error", error);
         return res.status(500).json({ message: "Server error" });
     }
 });
@@ -78,15 +66,31 @@ router.delete("/:id", protect, async (req, res) => {
         if (!note) {
             return res.status(404).json({ message: "Note not found" });
         }
-        // CHANGED: Use 'note.user' instead of 'note.createdBy'
-        if (note.user.toString() !== req.user._id.toString()) {
+        if (note.createdBy.toString() != req.user._id.toString()) {
             return res.status(401).json({ message: "Not authorized" });
         }
         await note.deleteOne();
         res.json({ message: "Note deleted" });
     } catch (error) {
-        console.error("Server Error", error);
         return res.status(500).json({ message: "Server error" });
+    }
+});
+
+// Pin/unpin a note
+router.put("/:id/pin", protect, async (req, res) => {
+    try {
+        const note = await Note.findById(req.params.id);
+        if (!note) {
+            return res.status(404).json({ message: "Note not found" });
+        }
+        if (note.createdBy.toString() !== req.user.id.toString()) {
+            return res.status(401).json({ message: "Not authorized" });
+        }
+        note.isPinned = !note.isPinned;
+        await note.save();
+        res.json(note);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
     }
 });
 

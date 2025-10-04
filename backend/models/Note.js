@@ -1,8 +1,9 @@
+// backend/models/Note.js
+
 import mongoose from "mongoose";
 
 const NoteSchema = new mongoose.Schema({
-
-    user: {
+    createdBy: { 
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -15,11 +16,10 @@ const NoteSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    
-    isPinned: {
+    isPinned: { // KEPT
       type: Boolean,
       required: true,
-      default: false, // Default to not pinned
+      default: false,
     },
   },
   {
