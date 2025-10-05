@@ -3,15 +3,12 @@
 **Check out the live application here:** [**https://my-nano-notesf.vercel.app**](https://my-nano-notesf.vercel.app)
 ---
 
-
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?logo=vercel)
 ![Render](https://img.shields.io/badge/Render-Deployment-46E3B7?logo=render)
 
 A minimalist, secure, and responsive notes application built with the MERN stack. NanoNotes allows users to create, manage, and delete their notes seamlessly, 
 with a robust authentication system ensuring data privacy.
-
-
 
 
 ## 🚀 Tech Stack
@@ -30,11 +27,25 @@ with a robust authentication system ensuring data privacy.
 ## 📋 Key Features
 
 -   **User Authentication:** Secure user registration and login system using JSON Web Tokens (JWT) for session management.
+  <img width="788" height="721" alt="Screenshot 2025-10-05 121001" src="https://github.com/user-attachments/assets/15e66fa9-494b-4e6a-ad25-f096a5bb8cde" />
+
 -   **Password Security:** Passwords are fully encrypted using `bcrypt` for maximum security.
--   **Password Reset:** "Forgot Password" functionality that sends a secure, time-sensitive reset link to the user's email via **Nodemailer**.
+-   **Password Reset:** "Forgot Password" functionality that sends a secure, time-sensitive reset link to the user's email via **SendGrid**.
+  <img width="676" height="475" alt="Screenshot 2025-10-05 120949" src="https://github.com/user-attachments/assets/8be558c3-fe89-4549-a09d-3fa47bc6b2ea" />
+  <img width="894" height="246" alt="Screenshot 2025-10-05 121309" src="https://github.com/user-attachments/assets/3518167f-abe5-4d8c-85a0-df54fb72192d" />
+
 -   **Full CRUD Functionality:** Users can Create, Read, Update, and Delete their own notes.
+    <img width="1870" height="877" alt="Screenshot 2025-10-05 120907" src="https://github.com/user-attachments/assets/64199606-333c-46f8-94e4-011969bf68cd" />
+   
 -   **Responsive Design:** A clean and intuitive UI that is fully responsive and works seamlessly on desktop, tablet, and mobile devices.
+    <img width="1858" height="864" alt="Screenshot 2025-10-05 120923" src="https://github.com/user-attachments/assets/8a2d2e90-a41c-4426-b897-58028dd0d67e" />
+    <img width="1865" height="861" alt="Screenshot 2025-10-05 120937" src="https://github.com/user-attachments/assets/d9c93589-b050-47a6-b9ba-9bd87db96a17" />
+
+
 -   **Containerized:** The entire application is containerized using **Docker**, ensuring a consistent and isolated environment for development and deployment.
+  <img width="622" height="88" alt="Screenshot 2025-07-21 204434" src="https://github.com/user-attachments/assets/ffbc79a0-ca68-4653-95ae-aa2b16f481f8" />
+  <img width="1867" height="701" alt="Screenshot (291)" src="https://github.com/user-attachments/assets/517b99d4-9ae9-4065-ab13-3111e57ea54b" />
+
 -   **Separate Frontend/Backend Deployment:** Frontend deployed on **Vercel** for optimal performance and backend on **Render** for a robust server environment.
 
 ---
